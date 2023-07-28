@@ -1,2 +1,2 @@
-# frontend-boilerplate
-Frontend boilerplate which use HTML, SCSS, and JavaScript.
+# Frontend Boilerplate for HTML SCSS JavaScript
+Starter frontend boilerplate which uses HTML, SCSS, JavaScript and Gulp Js.
