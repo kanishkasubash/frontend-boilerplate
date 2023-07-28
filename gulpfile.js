@@ -10,11 +10,16 @@ const sourcemaps = require('gulp-sourcemaps');
 // File paths
 const styleSrc = './src/scss/style.scss';
 const styleDist = './dist/css/';
+const styleWatch = 'src/scss/**/*.scss';
+
+const scriptSrc = './src/js/script.js';
+const scriptDist = './dist/js/';
+const scriptWatch = 'src/js/**/*.js';
 
 // style task: compiles SCSS to CSS and put final style.min.css file in dist/css folder
 function style() {
     return src(styleSrc)
-    .pipe(sourcemaps.init())
+        .pipe(sourcemaps.init())
         .pipe(sass({
             errorLogToConsole: true,
             outputStyle: 'compressed'
@@ -29,6 +34,17 @@ function style() {
         .pipe(dest(styleDist));
 }
 
+// script task: concatenates and uglifies JS files and put final script.min.js file in dist/js folder
+function script() {
+    return src(scriptSrc)
+        .pipe(dest(scriptDist));
+}
+
+// watchFiles task: watch change(s) of HTML, SCSS and JS files.
+//If any change(s), run style and script tasks simultaneously
+function watchFiles() {
+    watch([styleWatch, scriptWatch], series(style, script));
+}
 
 // Export the default Gulp task to run
-exports.default = style;
+exports.default = series(style, script, watchFiles);
