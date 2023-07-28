@@ -1,0 +1,22 @@
+{
+  "name": "frontend-boilerplate",
+  "version": "1.0.0",
+  "description": "Simple Starter Frontend boilerplate for HTML SCSS JavaScript using Glup4",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kanishkasubash/frontend-boilerplate.git"
+  },
+  "keywords": [
+    "boilerplate",
+    "html",
+    "scss",
+    "javascript",
+    "glup4"
+  ],
+  "author": "Kanishka Priyashantha",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  }
+}
