@@ -16,12 +16,14 @@ const browsersync = require("browser-sync").create();
 // File paths
 const styleSrc = 'src/scss/style.scss';
 const styleDist = './dist/css/';
-const styleWatch = 'src/scss/**/*.scss';
 
 const scriptSrc = 'script.js';
 const scriptFolder = 'src/js/';
 const scriptDist = './dist/js/';
+
+const styleWatch = 'src/scss/**/*.scss';
 const scriptWatch = 'src/js/**/*.js';
+const htmlWatch = 'src**/*.html';
 
 // JS Files as an array
 const scriptFiles = [scriptSrc];
@@ -30,9 +32,15 @@ const scriptFiles = [scriptSrc];
 function browserSync() {
     browsersync.init({
         server: {
-			baseDir: './'
-		}
+            baseDir: './src'
+        }
     });
+}
+
+// browserSyncReload
+function browserSyncReload(done) {
+    browsersync.reload();
+    done();
 }
 
 // style task: compiles SCSS to CSS and put final style.min.css file into dist/css folder
@@ -45,12 +53,13 @@ function style() {
         }))
         .on('error', console.error.bind(console))
         .pipe(autoPrefixer({
-            overrideBrowserslist: ['last 2 versions'],
+            overrideBrowserslist: ['last 2 versions', '> 5%', 'Firefox ESR'],
             cascade: false
         }))
         .pipe(rename({ suffix: '.min' }))
         .pipe(sourcemaps.write('./'))
-        .pipe(dest(styleDist));
+        .pipe(dest(styleDist))
+        .pipe(browsersync.stream());
 }
 
 // script task: compiles and bundle JS files and put final script.min.js file into dist/js folder
@@ -68,14 +77,16 @@ async function script() {
             .pipe(uglify())
             .pipe(sourcemaps.write('./'))
             .pipe(dest(scriptDist))
+            .pipe(browsersync.stream());
     });
 }
 
 // watchFiles task: watch change(s) of HTML, SCSS and JS files.
 //If any change(s), run style and script tasks simultaneously
 function watchFiles() {
+    watch(htmlWatch, browserSyncReload);
     watch([styleWatch, scriptWatch], series(style, script));
 }
 
 // Export the default Gulp task to run
-exports.default = series(style, script, browserSync, watchFiles);
+exports.default = series(parallel(style, script), parallel(browserSync, watchFiles));
