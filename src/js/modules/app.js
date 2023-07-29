@@ -1,6 +1,10 @@
 class App {
-    constructor() {
-        console.info('App Initialized');
+    constructor(message) {
+        this.message = message;
+    }
+
+    greeting() {
+        return "Hello!" + this.message;
     }
 }
 
