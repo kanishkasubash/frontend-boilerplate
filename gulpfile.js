@@ -11,6 +11,7 @@ const browserify = require('browserify');
 const babelify = require('babelify');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
+const browsersync = require("browser-sync").create();
 
 // File paths
 const styleSrc = 'src/scss/style.scss';
@@ -22,7 +23,17 @@ const scriptFolder = 'src/js/';
 const scriptDist = './dist/js/';
 const scriptWatch = 'src/js/**/*.js';
 
+// JS Files as an array
 const scriptFiles = [scriptSrc];
+
+// browserSync to run a local server & auto reload HTTPS
+function browserSync() {
+    browsersync.init({
+        server: {
+			baseDir: './'
+		}
+    });
+}
 
 // style task: compiles SCSS to CSS and put final style.min.css file into dist/css folder
 function style() {
@@ -67,4 +78,4 @@ function watchFiles() {
 }
 
 // Export the default Gulp task to run
-exports.default = series(style, script, watchFiles);
+exports.default = series(style, script, browserSync, watchFiles);

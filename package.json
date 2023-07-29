@@ -1,14 +1,11 @@
 {
-  "overrides": {
-    "graceful-fs": "^4.2.11"
-  },
   "name": "frontend-boilerplate",
   "version": "1.0.0",
   "description": "Simple Starter Frontend boilerplate for HTML SCSS JavaScript using Glup4",
-  "main": "index.js",
+  "main": "gulpfile.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kanishkasubash/frontend-boilerplate.git"
+    "url": "https://github.com/kanishkasubash/frontend-boilerplate"
   },
   "keywords": [
     "boilerplate",
@@ -25,6 +22,7 @@
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "babelify": "^10.0.0",
+    "browser-sync": "^2.29.3",
     "browserify": "^17.0.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^6.1.0",

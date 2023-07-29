@@ -4,7 +4,7 @@ class App {
     }
 
     greeting() {
-        return "Hello!" + this.message;
+        return "Hello! " + this.message;
     }
 }
 
