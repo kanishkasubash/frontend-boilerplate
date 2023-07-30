@@ -19,7 +19,7 @@ const del = require('del');
 const paths = {
     styles: {
         file: 'src/styles/style.scss',
-        src: 'src/styles/**/*.sass',
+        src: 'src/styles/**/*.scss',
         dest: 'build/css/'
     },
     scripts: {
