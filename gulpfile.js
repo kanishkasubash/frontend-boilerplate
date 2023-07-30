@@ -130,8 +130,7 @@ function watchFiles() {
 }
 
 //Export the Gulp tasks to run
+const build = parallel(style, script, html, images);
+const watcher = parallel(browserSync, watchFiles);
 exports.clean = clean;
-exports.default = series(
-    parallel(style, script, html, images),
-    parallel(browserSync, watchFiles)
-);
+exports.default = series(clean, build, watcher);
