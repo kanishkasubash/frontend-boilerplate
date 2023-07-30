@@ -13,47 +13,54 @@ const babelify = require("babelify");
 const source = require("vinyl-source-stream");
 const buffer = require("vinyl-buffer");
 const browsersync = require("browser-sync").create();
+const del = require('del');
 
-// src file paths
-const styleSrc = "./src/scss/style.scss";
-const scriptSrc = "script.js";
-const htmlSrc = "./src/**/*.html";
-const imgSrc = "./src/images/**/*.*"
+// All folders & files paths
+const paths = {
+    styles: {
+        file: 'src/styles/style.scss',
+        src: 'src/styles/**/*.sass',
+        dest: 'build/css/'
+    },
+    scripts: {
+        files: ['script.js'],
+        dir: 'src/scripts/',
+        src: 'src/scripts/**/*.js',
+        dest: 'build/js/'
+    },
+    htmls: {
+        src: 'src/**/*.html',
+        dest: 'build/'
+    },
+    images: {
+        src: 'src/images/**/*.{jpg,jpeg,png,svg,icon}',
+        dest: 'build/images/'
+    }
+};
 
-// dist file paths
-const styleDist = "./dist/css/";
-const scriptDist = "./dist/js/";
-const htmlDist = "./dist/";
-const imgDist = "./dist/images/";
-
-// watch file paths
-const styleWatch = "./src/scss/**/*.scss";
-const scriptWatch = "./src/js/**/*.js";
-const htmlWatch = "./src/**/*.html";
-const imgWatch = "./src/images/**/*.*";
-
-// JS Files & Folders
-const scriptFiles = [scriptSrc];
-const scriptFolder = "./src/js/";
+// Delete folders & files
+async function clean() {
+    return await del(['build']);
+}
 
 // browserSync to run a local server & auto reload HTTPS
 function browserSync() {
     browsersync.init({
         server: {
-            baseDir: "./dist/",
+            baseDir: "build/",
         },
     });
 }
 
 // browserSyncReload
-function browserSyncReload(callBack) {
+function browserSyncReload(callback) {
     browsersync.reload();
-    callBack();
+    callback();
 }
 
 // style task: compiles SCSS to CSS and put final style.min.css file into dist/css folder
-function style(callBack) {
-    return src(styleSrc)
+function style() {
+    return src(paths.styles.file)
         .pipe(sourcemaps.init())
         .pipe(
             sass({
@@ -68,31 +75,35 @@ function style(callBack) {
                 cascade: false,
             })
         )
-        .pipe(rename({ suffix: ".min" }))
+        .pipe(rename({
+            basename: "main",
+            suffix: ".min"
+        }))
         .pipe(sourcemaps.write("./"))
-        .pipe(dest(styleDist))
+        .pipe(dest(paths.styles.dest))
         .pipe(browsersync.stream());
-    callBack();
 }
 
 // script task: compiles and bundle JS files and put final script.min.js file into dist/js folder
-async function script(callBack) {
-    scriptFiles.map(function (entry) {
+async function script() {
+    paths.scripts.files.map(function (entry) {
         return browserify({
-            entries: [scriptFolder + entry],
+            entries: [paths.scripts.dir + entry],
         })
             .transform(babelify, { presets: ["@babel/preset-env"] })
             .bundle()
             .pipe(source(entry))
-            .pipe(rename({ extname: ".min.js" }))
+            .pipe(rename({
+                basename: "main",
+                extname: ".min.js"
+            }))
             .pipe(buffer())
             .pipe(sourcemaps.init({ loadmaps: true }))
             .pipe(uglify())
             .pipe(sourcemaps.write("./"))
-            .pipe(dest(scriptDist))
+            .pipe(dest(paths.scripts.dest))
             .pipe(browsersync.stream());
     });
-    callBack();
 }
 
 // runPlumber
@@ -103,20 +114,24 @@ function runPlumber(srcFile, destFile) {
 }
 
 function html() {
-    return runPlumber(htmlSrc, htmlDist);
+    return runPlumber(paths.htmls.src, paths.htmls.dest);
 }
 
 function images() {
-    return runPlumber(imgSrc, imgDist);
+    return runPlumber(paths.images.src, paths.images.dest);
 }
 
 // watchFiles task: watch change(s) of HTML, SCSS and JS files.
-//If any change(s), run style and script tasks simultaneously
+//If any change(s), run html, style and script tasks simultaneously
 function watchFiles() {
-    watch([styleWatch, scriptWatch, htmlWatch, imgWatch], series(style, script, html, images, browserSyncReload));
+    watch(paths.styles.src, series(style, browserSyncReload));
+    watch(paths.scripts.src, series(script, browserSyncReload));
+    watch(paths.htmls.src, series(html, browserSyncReload));
+    watch(paths.images.src, series(images, browserSyncReload));
 }
 
-//Export the default Gulp task to run
+//Export the Gulp tasks to run
+exports.clean = clean;
 exports.default = series(
     parallel(style, script, html, images),
     parallel(browserSync, watchFiles)
