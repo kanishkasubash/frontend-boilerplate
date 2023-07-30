@@ -106,7 +106,7 @@ async function script() {
     });
 }
 
-// Put files into build folder
+// Put files from src into build folder
 function runPlumber(srcFile, destFile) {
     return src(srcFile)
         .pipe(plumber())
