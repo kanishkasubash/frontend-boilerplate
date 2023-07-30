@@ -15,7 +15,7 @@ const buffer = require("vinyl-buffer");
 const browsersync = require("browser-sync").create();
 const del = require('del');
 
-// All folders & files paths
+// All folder & file paths
 const paths = {
     styles: {
         file: 'src/styles/style.scss',
@@ -58,7 +58,7 @@ function browserSyncReload(callback) {
     callback();
 }
 
-// style task: compiles SCSS to CSS and put final style.min.css file into dist/css folder
+// style task: compiles SCSS to CSS and put final main.min.css file into build/css folder
 function style() {
     return src(paths.styles.file)
         .pipe(sourcemaps.init())
@@ -84,7 +84,7 @@ function style() {
         .pipe(browsersync.stream());
 }
 
-// script task: compiles and bundle JS files and put final script.min.js file into dist/js folder
+// script task: compiles and bundle JS files and put final main.min.js file into build/js folder
 async function script() {
     paths.scripts.files.map(function (entry) {
         return browserify({
@@ -106,23 +106,22 @@ async function script() {
     });
 }
 
-// runPlumber
+// Put files into build folder
 function runPlumber(srcFile, destFile) {
     return src(srcFile)
         .pipe(plumber())
         .pipe(dest(destFile));
 }
-
+// Put html files into build folder
 function html() {
     return runPlumber(paths.htmls.src, paths.htmls.dest);
 }
-
+// Put image files into build folder
 function images() {
     return runPlumber(paths.images.src, paths.images.dest);
 }
 
 // watchFiles task: watch change(s) of HTML, SCSS and JS files.
-//If any change(s), run html, style and script tasks simultaneously
 function watchFiles() {
     watch(paths.styles.src, series(style, browserSyncReload));
     watch(paths.scripts.src, series(script, browserSyncReload));
