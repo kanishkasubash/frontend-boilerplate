@@ -5,6 +5,7 @@ const { src, dest, watch, series, parallel } = require("gulp");
 const rename = require("gulp-rename");
 const sass = require("gulp-sass")(require("sass"));
 const uglify = require("gulp-uglify");
+const htmlmin = require('gulp-htmlmin');
 const autoPrefixer = require("gulp-autoprefixer");
 const sourcemaps = require("gulp-sourcemaps");
 const plumber = require('gulp-plumber');
@@ -106,19 +107,17 @@ async function script() {
     });
 }
 
-// Put files from src into build folder
-function runPlumber(srcFile, destFile) {
-    return src(srcFile)
-        .pipe(plumber())
-        .pipe(dest(destFile));
-}
-// Put html files into build folder
+// Put minified html files into build folder
 function html() {
-    return runPlumber(paths.htmls.src, paths.htmls.dest);
+    return src(paths.htmls.src)
+    .pipe(htmlmin({ collapseWhitespace: true }))
+    .pipe(dest(paths.htmls.dest));
 }
 // Put image files into build folder
 function images() {
-    return runPlumber(paths.images.src, paths.images.dest);
+    return src(paths.images.src)
+        .pipe(plumber())
+        .pipe(dest(paths.images.dest));
 }
 
 // watchFiles task: watch change(s) of HTML, SCSS and JS files.
