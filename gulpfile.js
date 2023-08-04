@@ -39,7 +39,7 @@ const paths = {
     }
 };
 
-// Delete folders & files
+// Delete specified folders & files
 async function clean() {
     return await del(['build']);
 }
@@ -53,7 +53,7 @@ function browserSync() {
     });
 }
 
-// browserSyncReload
+// auto reload function
 function browserSyncReload(cb) {
     browsersync.reload();
     cb();
@@ -62,7 +62,7 @@ function browserSyncReload(cb) {
 // style task: compiles SCSS to CSS and put final main.min.css file into build/css folder
 function style() {
     return src(paths.styles.file)
-        .pipe(sourcemaps.init())
+        .pipe(sourcemaps.init()) // sourcemaps're usefull for debugging in browser devtools
         .pipe(
             sass({
                 errorLogToConsole: true,
