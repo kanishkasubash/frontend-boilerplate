@@ -14,8 +14,10 @@ In essence, Gulp.js isn't just an automation tool; it's a paradigm shift. It's t
 
 ### How To Start
 
-1. Install [Nod.js](https://nodejs.org/en).
-2. Download **frontend-bolierplate** into your local computer
-3. Go into ../frontend-boilerplate dir
-4. open cmd/terminal run ```npm install```
-5. To start local server run ```gulp```
+1. Install [Nod.js](https://nodejs.org/en) (if you don't have in your computer).
+2. Download **frontend-bolierplate** folder into your local computer.
+3. Go to ../frontend-boilerplate folder or you can open in text editor like vs code.
+4. open cmd or terminal run ```npm install```.
+5. To start local server run ```gulp```.
+
+**Note: Everything done by this single command.**
