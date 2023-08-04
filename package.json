@@ -26,6 +26,7 @@
     "del": "^6.1.1",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^6.1.0",
+    "gulp-htmlmin": "^5.0.1",
     "gulp-plumber": "^1.2.1",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^5.1.0",
@@ -41,14 +42,14 @@
     ]
   },
   "browserify": {
-		"transform": [
-			"browserify-shim"
-		]
-	},
-	"browser": {
-		"jquery": "./node_modules/jquery/dist/jquery.js"
-	},
-	"browserify-shim": {
-		"jquery": "$"
-	}
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browser": {
+    "jquery": "./node_modules/jquery/dist/jquery.js"
+  },
+  "browserify-shim": {
+    "jquery": "$"
+  }
 }
