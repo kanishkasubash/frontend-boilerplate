@@ -1,4 +1,5 @@
 # Frontend Boilerplate for HTML, SCSS, JavaScript based Web Development
+## Small scale static web sites build tool
 
 Step into the future of streamlined web development with your very own automation masterpiece crafted using Gulp.js. Gulp.js is more than just a tool; it's a technological marvel that empowers you to transform repetitive and time-consuming tasks into a symphony of efficiency and precision.
 
