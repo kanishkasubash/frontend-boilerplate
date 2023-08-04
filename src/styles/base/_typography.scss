@@ -1,0 +1,18 @@
+@use '../utilities/' as *;
+
+h1, h2, h3, h4 {
+    margin-top: 0;
+    line-height: 1.1;
+}
+
+h1 {
+    font-size: rem(24);
+    margin-bottom: rem(3);
+    @include respond-min(xlarge) {
+        font-size: rem(28);
+    }
+}
+
+a, a:visited, a:active {
+    text-decoration: none;
+}

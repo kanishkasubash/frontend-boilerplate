@@ -1,0 +1,11 @@
+@use '../utilities/' as *;
+
+.attribution {
+    font-size: rem(11);
+    text-align: center;
+    margin-top: rem(48);
+
+    a {
+        color: var(--attribution);
+    }
+}

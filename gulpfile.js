@@ -53,9 +53,9 @@ function browserSync() {
 }
 
 // browserSyncReload
-function browserSyncReload(callback) {
+function browserSyncReload(cb) {
     browsersync.reload();
-    callback();
+    cb();
 }
 
 // style task: compiles SCSS to CSS and put final main.min.css file into build/css folder

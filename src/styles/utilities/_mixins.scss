@@ -1,0 +1,14 @@
+@import 'breakpoints';
+
+/* Manage Responsive Breakpoints */
+@mixin respond-min($breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+        @content;
+    }
+}
+
+@mixin respond-max($breakpoint) {
+    @media (max-width: map-get($breakpoints, $breakpoint)) {
+        @content;
+    }
+}
