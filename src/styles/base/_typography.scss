@@ -6,11 +6,18 @@ h1, h2, h3, h4 {
 }
 
 h1 {
+    font-family: var(--font-outfit);    
     font-size: rem(24);
-    margin-bottom: rem(3);
+    font-weight: 700;
+    margin-bottom: rem(16);
     @include respond-min(xlarge) {
         font-size: rem(28);
     }
+}
+
+.inter {
+    font-family: var(--font-inter);
+    font-weight: 400;
 }
 
 a, a:visited, a:active {

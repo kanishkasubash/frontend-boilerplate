@@ -34,8 +34,12 @@ const paths = {
         dest: 'build/'
     },
     images: {
-        src: 'src/images/**/*.{jpg,jpeg,png,svg,icon}',
-        dest: 'build/images/'
+        src: 'src/assets/images/**/*.{jpg,jpeg,png,svg,icon}',
+        dest: 'build/assets/images/'
+    },
+    fonts: {
+        src: 'src/assets/fonts/**/*.{woff,woff2}',
+        dest: 'build/assets/fonts/'
     }
 };
 
@@ -113,11 +117,19 @@ function html() {
     .pipe(htmlmin({ collapseWhitespace: true }))
     .pipe(dest(paths.htmls.dest));
 }
+
 // Put image files into build folder
 function images() {
     return src(paths.images.src)
         .pipe(plumber())
         .pipe(dest(paths.images.dest));
+}
+
+// Put fonts into build folder
+function fonts() {
+    return src(paths.fonts.src)
+        .pipe(plumber())
+        .pipe(dest(paths.fonts.dest));
 }
 
 // watchFiles task: watch change(s) of HTML, SCSS and JS files.
@@ -126,10 +138,11 @@ function watchFiles() {
     watch(paths.scripts.src, series(script, browserSyncReload));
     watch(paths.htmls.src, series(html, browserSyncReload));
     watch(paths.images.src, series(images, browserSyncReload));
+    watch(paths.fonts.src, series(fonts, browserSyncReload));
 }
 
 //Export the Gulp tasks to run
-const build = parallel(style, script, html, images);
+const build = parallel(style, script, html, images, fonts);
 const watcher = parallel(browserSync, watchFiles);
 exports.clean = clean;
 exports.default = series(clean, build, watcher);

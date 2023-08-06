@@ -1,3 +1,12 @@
+@import 'mixins';
+
+@include font('Outfit', OutfitThin, 100);
+@include font('Outfit', OutfitRegular, 400);
+@include font('Inter', InterRegular, 400);
+@include font('Outfit', OutfitBold, 700);
+@include font('Inter', InterBold, 700);
+
 :root {
     --font-inter: 'Inter', sans-serif;
+    --font-outfit: 'Outfit', sans-serif;
 }
