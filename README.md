@@ -1,4 +1,4 @@
-# Frontend Boilerplate for HTML, SCSS, JavaScript based Small scale Frontend build tool
+# HTML, SCSS and JavaScript based Small scale Frontend build tool
 
 1. Comppile SCSS to CSS with minifing and sourcemap.
 2. Bundle JS files, minifing and sourcemap.
