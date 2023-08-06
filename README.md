@@ -1,5 +1,11 @@
-# Frontend Boilerplate for HTML, SCSS, JavaScript based Web Development
-## Small scale static web sites build tool
+# Frontend Boilerplate for HTML, SCSS, JavaScript based Small scale Frontend build tool
+
+1. Comppile SCSS to CSS with minifing and sourcemap.
+2. Bundle JS files, minifing and sourcemap.
+3. Compresed html files.
+4. Handle images and Self-hosting Fonts.
+5. Watch files any changes.
+6. Browser Sync and auto Reload.
 
 Step into the future of streamlined web development with your very own automation masterpiece crafted using Gulp.js. Gulp.js is more than just a tool; it's a technological marvel that empowers you to transform repetitive and time-consuming tasks into a symphony of efficiency and precision.
 
@@ -21,4 +27,4 @@ In essence, Gulp.js isn't just an automation tool; it's a paradigm shift. It's t
 4. open cmd or terminal run ```npm install```.
 5. To start local server run ```gulp```.
 
-**Note: Everything done by this single command.**
+**Note: Everything done by running this single ```gulp``` command.**
