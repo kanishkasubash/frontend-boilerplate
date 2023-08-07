@@ -3,9 +3,12 @@
 .attribution {
     font-size: rem(11);
     text-align: center;
-    margin-top: rem(48);
+    margin-top: rem(32);
 
     a {
         color: var(--attribution);
+        &:hover{
+            color: var(--text-primary);
+        }
     }
 }

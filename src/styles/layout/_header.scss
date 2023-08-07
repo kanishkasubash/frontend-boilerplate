@@ -1,8 +1,6 @@
 @use '../utilities/' as *;
 
-.header {
-    margin-top: rem(36);    
-    &__heading {
-        text-align: center;
-    }
+.header {    
+    margin-top: rem(36);
+    text-align: center;
 }

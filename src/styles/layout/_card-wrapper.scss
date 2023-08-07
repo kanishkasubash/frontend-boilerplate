@@ -1,0 +1,15 @@
+@use '../utilities/' as *;
+
+.card-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: rem(16);
+
+    @include respond-min(small) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-min(large) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

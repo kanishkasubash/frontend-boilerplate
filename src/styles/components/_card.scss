@@ -1,0 +1,30 @@
+@use '../utilities/' as *;
+
+.card {
+    background-color: var(--card-bg);
+    max-width: rem(320);
+    border-radius: rem(15);
+    padding: rem(20) 0;
+    margin: 0 rem(10);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        background-color: var(--card-bg-hover);
+        cursor: pointer;
+    }
+
+    &__header {
+        margin-bottom: rem(20);
+
+    }
+    a {
+        padding-left: rem(28);
+    }
+
+    &__image {
+        width: 80%;
+    }
+}

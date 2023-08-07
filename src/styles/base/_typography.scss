@@ -10,14 +10,31 @@ h1 {
     font-size: rem(24);
     font-weight: 700;
     margin-bottom: rem(16);
-    @include respond-min(xlarge) {
-        font-size: rem(28);
+    @include respond-min(large) {
+        font-size: rem(48);
+    }
+}
+h2 {
+    font-family: var(--font-outfit);    
+    font-size: rem(16);
+    font-weight: 700;
+    @include respond-min(large) {
+        font-size: rem(24);
     }
 }
 
-.inter {
+p {
     font-family: var(--font-inter);
+    font-size: medium;
     font-weight: 400;
+    font-size: rem(12);
+    @include respond-min(large) {
+        font-size: rem(16);
+    }    
+}
+
+.paragraph {
+    text-align: justify;
 }
 
 a, a:visited, a:active {
