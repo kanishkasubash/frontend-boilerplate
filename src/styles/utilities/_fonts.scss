@@ -3,7 +3,8 @@
         font-family: $font-family;
         font-style: normal;
         font-weight: $font-weight;
-        src: url($path + '.woff') format('woff');
+        src: url($path + '.woff') format('woff'),
+            url($path + '.woff2') format('woff2');
     }
 }
 
