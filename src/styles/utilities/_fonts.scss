@@ -1,10 +1,16 @@
-@import 'mixins';
+@mixin font-family($font-family, $path, $font-weight) {
+    @font-face {
+        font-family: $font-family;
+        font-style: normal;
+        font-weight: $font-weight;
+        src: url($path + '.woff') format('woff');
+    }
+}
 
-@include font('Outfit', OutfitThin, 100);
-@include font('Outfit', OutfitRegular, 400);
-@include font('Inter', InterRegular, 400);
-@include font('Outfit', OutfitBold, 700);
-@include font('Inter', InterBold, 700);
+@include font-family('Inter', '/assets/fonts/Inter-Regular', 400);
+@include font-family('Inter', '/assets/fonts/Inter-Bold', 700);
+@include font-family('Outfit', '/assets/fonts/Outfit-Regular', 400);
+@include font-family('Outfit', '/assets/fonts/Outfit-Bold', 700);
 
 :root {
     --font-inter: 'Inter', sans-serif;

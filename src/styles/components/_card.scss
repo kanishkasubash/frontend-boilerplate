@@ -18,13 +18,15 @@
 
     &__header {
         margin-bottom: rem(20);
-
-    }
-    a {
-        padding-left: rem(28);
     }
 
     &__image {
-        width: 80%;
+        margin: rem(24);
+        img {
+            width: 90%;
+        }
+        a {
+            padding-left: rem(10);
+        }
     }
 }

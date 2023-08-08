@@ -6,6 +6,7 @@ const rename = require("gulp-rename");
 const sass = require("gulp-sass")(require("sass"));
 const uglify = require("gulp-uglify");
 const htmlmin = require('gulp-htmlmin');
+const postcss = require('gulp-postcss');
 const autoPrefixer = require("gulp-autoprefixer");
 const sourcemaps = require("gulp-sourcemaps");
 const plumber = require('gulp-plumber');
@@ -30,16 +31,13 @@ const paths = {
         dest: 'build/js/'
     },
     htmls: {
-        src: 'src/**/*.html',
+        src: 'index.html',
         dest: 'build/'
     },
-    images: {
-        src: 'src/assets/images/**/*.{jpg,jpeg,png,svg,icon}',
-        dest: 'build/assets/images/'
-    },
-    fonts: {
-        src: 'src/assets/fonts/**/*.{woff,woff2}',
-        dest: 'build/assets/fonts/'
+    assets: {
+        imgsrc: 'src/assets/**/*.{jpg,jpeg,png,svg,icon}',
+        fontsrc: 'src/assets/fonts/*.woff',
+        dest: 'build/assets/'
     }
 };
 
@@ -74,11 +72,10 @@ function style() {
             })
         )
         .on("error", console.error.bind(console))
-        .pipe(
-            autoPrefixer({
-                overrideBrowserslist: ['last 2 versions', '> 5%', 'Firefox ESR'],
-                cascade: false,
-            })
+        .pipe(postcss(autoPrefixer({
+            overrideBrowserslist: ['last 2 versions', '> 5%', 'Firefox ESR'],
+            cascade: false,
+        }))
         )
         .pipe(rename({
             basename: "main",
@@ -114,22 +111,22 @@ async function script() {
 // Put minified html files into build folder
 function html() {
     return src(paths.htmls.src)
-    .pipe(htmlmin({ collapseWhitespace: true }))
-    .pipe(dest(paths.htmls.dest));
+        .pipe(htmlmin({ collapseWhitespace: true }))
+        .pipe(dest(paths.htmls.dest));
 }
 
 // Put image files into build folder
 function images() {
-    return src(paths.images.src)
+    return src(paths.assets.imgsrc)
         .pipe(plumber())
-        .pipe(dest(paths.images.dest));
+        .pipe(dest(paths.assets.dest));
 }
 
-// Put fonts into build folder
+// Put font files into build folder
 function fonts() {
-    return src(paths.fonts.src)
+    return src(paths.assets.fontsrc)
         .pipe(plumber())
-        .pipe(dest(paths.fonts.dest));
+        .pipe(dest(paths.assets.dest + 'fonts/'));
 }
 
 // watchFiles task: watch change(s) of HTML, SCSS and JS files.
@@ -137,8 +134,8 @@ function watchFiles() {
     watch(paths.styles.src, series(style, browserSyncReload));
     watch(paths.scripts.src, series(script, browserSyncReload));
     watch(paths.htmls.src, series(html, browserSyncReload));
-    watch(paths.images.src, series(images, browserSyncReload));
-    watch(paths.fonts.src, series(fonts, browserSyncReload));
+    watch(paths.assets.imgsrc, series(images, browserSyncReload));
+    watch(paths.assets.fontsrc, series(fonts, browserSyncReload));
 }
 
 //Export the Gulp tasks to run
