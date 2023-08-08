@@ -36,7 +36,7 @@ const paths = {
     },
     assets: {
         imgsrc: 'src/assets/**/*.{jpg,jpeg,png,svg,icon}',
-        fontsrc: 'src/assets/fonts/*.woff',
+        fontsrc: 'src/assets/fonts/*.{woff,woff2}',
         dest: 'build/assets/'
     }
 };
