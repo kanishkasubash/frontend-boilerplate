@@ -1,7 +1,7 @@
 # HTML, SCSS and JavaScript based Small scale Frontend build tool
 
-1. Comppile SCSS to CSS with minifing and sourcemap.
-2. Bundle JS files, minifing and sourcemap.
+1. Compile SCSS to CSS with minifing and sourcemap.
+2. Bundle JS files, minifing with sourcemap.
 3. Compresed html files.
 4. Handle images and Self-hosting Fonts.
 5. Watch files any changes.
